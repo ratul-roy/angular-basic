@@ -10,16 +10,17 @@ angular.module('movieApp.controllers',[]).controller('MovieListController',funct
     $scope.deleteMovie=function(movie){
         if(popupService.showPopup('Really delete this?')){
             movie.$delete(function(){
-                $window.location.href='';
+                $window.location.href= "";
+                //$state.go('movies'); //won't work here as already in movies state
             });
         }
     }
 
 }).controller('MovieViewController',function($scope,$stateParams,Movie){
     console.log("*********** in MovieViewController********");
-    console.log($stateParams.id);
+    //console.log($stateParams.id);
     $scope.movie = Movie.get({id:$stateParams.id});
-    console.log($scope.movie);
+    //console.log($scope.movie);
 
 }).controller('MovieCreateController',function($scope,$state,$stateParams,Movie){
 
