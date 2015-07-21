@@ -1,17 +1,27 @@
-/**
- * Created by Sandeep on 01/06/14.
- */
-angular.module('movieApp.controllers',[]).controller('MovieListController',function($scope,$state,popupService,$window,Movie){
+  angular.module('movieApp.controllers',[]).controller('MovieListController',function($scope,$state,PopupService,$window,Movie){
 
-     $scope.movies = Movie.query();
-    console.log("*********** in MovieListController********");
-    //$scope.movies = Movie.get();
-    //console.log($scope.movies);
+    //$scope.movies = Movie.query();
+
+
+    Movie.get(function(response) {
+        console.log("*********** in MovieListController********");
+        //debugger;
+        //$state.go('login');
+        debugger;
+        $scope.movies = response.data;
+
+    });
     $scope.deleteMovie=function(movie){
-        if(popupService.showPopup('Really delete this?')){
+        if(PopupService.showPopup('Really delete this?')){
             movie.$delete(function(){
-                $window.location.href= "";
+              //  $window.location.href= "";
                 //$state.go('movies'); //won't work here as already in movies state
+                //debugger;
+                $state.transitionTo($state.current, $state.params, {
+                    reload: true,
+                    inherit: false,
+                    notify: true
+                });
             });
         }
     }
@@ -25,7 +35,7 @@ angular.module('movieApp.controllers',[]).controller('MovieListController',funct
 }).controller('MovieCreateController',function($scope,$state,$stateParams,Movie){
 
     $scope.movie=new Movie();
-
+    debugger;
     $scope.addMovie=function(){
         $scope.movie.$save(function(){
             $state.go('movies');

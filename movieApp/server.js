@@ -39,7 +39,11 @@ app.post('/moviesbackend', function(req, res){
 });
 app.get('/moviesbackend', function(req, res){
 	  res.writeHead(200, {'content-type': 'text/json' });
-		res.write(JSON.stringify( movies));
+		res.write(JSON.stringify( {
+        status : "OK",
+        data: movies,
+        errors: false
+    }));
 		res.end('\n');
 
 });
